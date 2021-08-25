@@ -22,8 +22,8 @@ runs:
          echo "::group::Downloading and installing R"
          TAG="${{ inputs.ucrt3-release }}"
          URL=`curl -s https://api.github.com/repos/kalibera/ucrt3/releases | \
-           sed -n 's!^ *\"*browser_download_url\"*: \(.*/download/'$TAG'/R-devel-win.*\)!\1!p'`
-         curl -s $URL > rinst.exe
+           sed -n 's!^ *\"*browser_download_url\"*: \"\(.*/download/'$TAG'/R-devel-win.*\)\"!\1!p'`
+         curl -s -L $URL > rinst.exe
          if [ ! -x rinst.exe ] ; then
            echo "::error ::ERROR: failed to download R installer"
          fi

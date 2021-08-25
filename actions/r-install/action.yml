@@ -14,13 +14,13 @@ runs:
        cache-name: cache-r
      with:
        path: ~/r
-       key: ${{ env.cache-name }}-${{ ucrt3-release }}
+       key: ${{ env.cache-name }}-${{ inputs.ucrt3-release }}
 
    - name: Install R
      run: |
        if [ "${{ runner.os }}" = Windows -a ! -d ~/r ] ; then
          echo "::group::Downloading and installing R"
-         TAG="${{ ucrt3-release }}"
+         TAG="${{ inputs.ucrt3-release }}"
          URL=`curl -s https://api.github.com/repos/kalibera/ucrt3/releases | \
            sed -n 's!^ *\"*browser_download_url\"*: \(.*/download/'$TAG'/R-devel-win.*\)!\1!p'`
          curl -s $URL > rinst.exe

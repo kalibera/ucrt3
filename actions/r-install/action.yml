@@ -33,7 +33,7 @@ runs:
            echo "::error ::ERROR: failed to install R"
          fi 
          echo "~/r/bin" >> $GITHUB_PATH
-         echo "::endgroup::'"
+         echo "::endgroup::"
        fi
      shell: bash
        

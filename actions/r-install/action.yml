@@ -40,8 +40,7 @@ runs:
    - name: Set up environment for R
      run: |
        if [ "${{ runner.os }}" = Windows ] ; then
-         echo "::group::Setting up environment (i.e. library path) for R"
-         echo "R_LIBS=~/rlibs" >> $GITHUB_ENV
+         echo "::group::Setting up environment for R"
          echo "R_LIBS_USER=NULL" >> $GITHUB_ENV
          echo "R_LIBS_SITE=NULL" >> $GITHUB_ENV
          echo "::endgroup::'"

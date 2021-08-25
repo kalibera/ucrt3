@@ -1,0 +1,49 @@
+name: 'Install R'
+description: 'Install UCRT-build of R'
+inputs:
+  ucrt3-release:
+    description: 'release tag for UCRT3'
+    required: false
+    default: 'v0.1'
+runs:
+  using: 'composite'
+  steps:
+   - name: Cache R installation
+     uses: actions/cache@v2
+     env:
+       cache-name: cache-r
+     with:
+       path: ~/r
+       key: ${{ env.cache-name }}-${{ ucrt3-release }}
+
+   - name: Install R
+     run: |
+       if [ "${{ runner.os }}" = Windows -a ! -d ~/r ] ; then
+         echo "::group::Downloading and installing R"
+         TAG="${{ ucrt3-release }}"
+         URL=`curl -s https://api.github.com/repos/kalibera/ucrt3/releases | \
+           sed -n 's!^ *\"*browser_download_url\"*: \(.*/download/'$TAG'/R-devel-win.*\)!\1!p'`
+         curl -s $URL > rinst.exe
+         if [ ! -x rinst.exe ] ; then
+           echo "::error ::ERROR: failed to download R installer"
+         fi
+         ./rinst.exe //VERYSILENT //SUPPRESSMSGBOXES //CURRENTUSER //DIR=`cygpath -wa ~/r`
+         rm -f rinst.exe
+         if [ ! -x ~/r/bin/R.exe ] ; then
+           echo "::error ::ERROR: failed to install R"
+         fi 
+         echo "~/r/bin" >> $GITHUB_PATH
+         echo "::endgroup::'"
+       fi
+     shell: bash
+       
+   - name: Set up environment for R
+     run: |
+       if [ "${{ runner.os }}" = Windows ] ; then
+         echo "::group::Setting up environment (i.e. library path) for R"
+         echo "R_LIBS=~/rlibs" >> $GITHUB_ENV
+         echo "R_LIBS_USER=NULL" >> $GITHUB_ENV
+         echo "R_LIBS_SITE=NULL" >> $GITHUB_ENV
+         echo "::endgroup::'"
+       fi
+     shell: bash

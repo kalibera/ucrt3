@@ -15,7 +15,7 @@ runs:
    - name: Install toolchain
      run: |
        TYPE="${{ inputs.toolchain-type }}"
-       TDIR="~/x86_64-w64-mingw32.static.posix"
+       TDIR=~/x86_64-w64-mingw32.static.posix
        if [ "${{ runner.os }}" = Windows -a $TYPE != "none" -a -r $TDIR/type ] ; then
            if [ "`cat $TDIR/type`" != "$TYPE" ] ; then
              # delete non-matching toolchain
@@ -46,10 +46,12 @@ runs:
          tar xf toolchain.txz -C ~
          echo "Home dir"
          ls -lrth ~/
-         echo "Toolchain dir"
-         ls -lrth $TDIR
+         echo "Find"
+         find ~/
          echo "Toolchain dir 2"
          ls -lrth ~/x86_64-w64-mingw32.static.posix
+         echo "TDIR is $TDIR"
+         ls -lrth $TDIR         
          echo "Current directory is `pwd`"
          if [ ! -d $TDIR ] ; then
            echo "::error ::ERROR: failed to install toolchain"

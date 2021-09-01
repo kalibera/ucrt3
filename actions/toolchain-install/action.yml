@@ -17,17 +17,14 @@ runs:
        TYPE="${{ inputs.toolchain-type }}"
        TDIR=~/x86_64-w64-mingw32.static.posix
        if [ "${{ runner.os }}" = Windows -a $TYPE != "none" -a -r $TDIR/type ] ; then
-           if [ "`cat $TDIR/type`" != "$TYPE" ] ; then
-             # delete non-matching toolchain
+           if [ "`cat $TDIR/type`" != $TYPE ] ; then
              rm -rf $TDIR
            else
-             # prepared for caching
              echo "Re-using cached toolchain."
            fi
        fi
        
-       if [ "${{ runner.os }}" = Windows -a $TYPE != "none" \
-            -a ! -d $TDIR ] ; then
+       if [ "${{ runner.os }}" = Windows -a $TYPE != "none" -a ! -d $TDIR ] ; then
        
          echo "::group::Downloading and installing the toolchain"
          TAG="${{ inputs.ucrt3-release }}"
@@ -37,7 +34,7 @@ runs:
            SUFF=""
          fi
          URL=`curl -s https://api.github.com/repos/kalibera/ucrt3/releases | \
-           sed -n 's!^ *\"*browser_download_url\"*: \"\(.*/download/'$TAG'/gcc10_ucrt3'${SUFF}'_[0-9]\+\.txz\)\"!\1!p'`
+           sed -n 's!^ *\"*browser_download_url\"*: \"\(.*/download/'$TAG'/gcc10_ucrt3'$SUFF'_[0-9]\+\.txz\)\"!\1!p'`
          curl -s -L $URL > toolchain.txz
          if [ ! -r toolchain.txz ] ; then
            echo "::error ::ERROR: failed to download toolchain"
@@ -46,7 +43,7 @@ runs:
          if [ ! -d $TDIR ] ; then
            echo "::error ::ERROR: failed to install toolchain"
          fi
-         echo "$TYPE" > $TDIR/type
+         echo $TYPE > $TDIR/type
          echo "::endgroup::"
        fi
      shell: bash
@@ -56,9 +53,7 @@ runs:
        TDIR=~/x86_64-w64-mingw32.static.posix
        if [ "${{ runner.os }}" = Windows ] ; then
          echo "::group::Setting up environment for R"
-         # echo "c:/msys64/usr/bin" >> $GITHUB_PATH
-         echo "$TDIR/bin" >> $GITHUB_PATH
-         # echo "MSYSTEM=MSYS" >> $GITHUB_ENV
+         echo $TDIR/bin >> $GITHUB_PATH
          echo "::endgroup::"
        fi
      shell: bash

@@ -16,10 +16,14 @@ runs:
      run: |
        TYPE="${{ inputs.toolchain-type }}"
        TDIR="~/x86_64-w64-mingw32.static.posix"
-       if [ "${{ runner.os }}" = Windows -a $TYPE != "none" -a \
-            -d $TDIR -a "X`cat $TDIR/type`" != $TYPE ] ; then
-           # delete non-matching toolchain   
-           rm -rf $TDIR
+       if [ "${{ runner.os }}" = Windows -a $TYPE != "none" -a -r $TDIR/type ] ; then
+           if [ "`cat $TDIR/type`" != "$TYPE" ] ; then
+             # delete non-matching toolchain
+             rm -rf $TDIR
+           else
+             # prepared for caching
+             echo "Re-using cached toolchain."
+           fi
        fi
        
        if [ "${{ runner.os }}" = Windows -a $TYPE != "none" \

@@ -42,6 +42,10 @@ runs:
          if [ ! -r toolchain.txz ] ; then
            echo "::error ::ERROR: failed to download toolchain"
          fi
+         ls -l toolchain.txz
+         echo "tar is `which tar`"
+         echo "unxz is `which unxz`"
+         echo "xz is `which xz`"
          tar xf toolchain.txz
          if [ ! -x $TDIR ] ; then
            echo "::error ::ERROR: failed to install toolchain"

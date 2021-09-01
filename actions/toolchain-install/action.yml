@@ -44,6 +44,8 @@ runs:
          fi
          ls -l toolchain.txz
          tar xf toolchain.txz -C ~
+         ls -lrth ~/
+         echo "Current directory is `pwd`"
          if [ ! -x $TDIR ] ; then
            echo "::error ::ERROR: failed to install toolchain"
          fi

@@ -42,17 +42,7 @@ runs:
          if [ ! -r toolchain.txz ] ; then
            echo "::error ::ERROR: failed to download toolchain"
          fi
-         ls -l toolchain.txz
          tar xf toolchain.txz -C ~
-         echo "Home dir"
-         ls -lrth ~/
-         echo "Find"
-         find ~/
-         echo "Toolchain dir 2"
-         ls -lrth ~/x86_64-w64-mingw32.static.posix
-         echo "TDIR is $TDIR"
-         ls -lrth $TDIR         
-         echo "Current directory is `pwd`"
          if [ ! -d $TDIR ] ; then
            echo "::error ::ERROR: failed to install toolchain"
          fi
@@ -63,12 +53,12 @@ runs:
        
    - name: Set up environment for R
      run: |
-       TDIR="~/x86_64-w64-mingw32.static.posix"
+       TDIR=~/x86_64-w64-mingw32.static.posix
        if [ "${{ runner.os }}" = Windows ] ; then
          echo "::group::Setting up environment for R"
          # echo "c:/msys64/usr/bin" >> $GITHUB_PATH
          echo "$TDIR/bin" >> $GITHUB_PATH
          # echo "MSYSTEM=MSYS" >> $GITHUB_ENV
-         echo "::endgroup::'"
+         echo "::endgroup::"
        fi
      shell: bash

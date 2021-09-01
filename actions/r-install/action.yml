@@ -43,6 +43,6 @@ runs:
          echo "~/r/bin" >> $GITHUB_PATH
          echo "R_LIBS_USER=NULL" >> $GITHUB_ENV
          echo "R_LIBS_SITE=NULL" >> $GITHUB_ENV
-         echo "::endgroup::'"
+         echo "::endgroup::"
        fi
      shell: bash

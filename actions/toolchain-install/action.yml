@@ -43,15 +43,11 @@ runs:
            echo "::error ::ERROR: failed to download toolchain"
          fi
          ls -l toolchain.txz
-         echo "tar is `which tar`"
-         echo "unxz is `which unxz`"
-         echo "xz is `which xz`"
-         tar xf toolchain.txz
+         tar xf toolchain.txz -C ~
          if [ ! -x $TDIR ] ; then
            echo "::error ::ERROR: failed to install toolchain"
          fi
          echo $TYPE > $TDIR/type
-
          echo "::endgroup::"
        fi
      shell: bash
@@ -61,9 +57,9 @@ runs:
        TDIR="~/x86_64-w64-mingw32.static.posix"
        if [ "${{ runner.os }}" = Windows ] ; then
          echo "::group::Setting up environment for R"
-         echo "c:/msys64/usr/bin" >> $GITHUB_PATH
+         # echo "c:/msys64/usr/bin" >> $GITHUB_PATH
          echo "$TDIR/bin" >> $GITHUB_PATH
-         echo "MSYSTEM=MSYS" >> $GITHUB_ENV
+         # echo "MSYSTEM=MSYS" >> $GITHUB_ENV
          echo "::endgroup::'"
        fi
      shell: bash

@@ -58,13 +58,17 @@ runs:
             exit 1
           fi
           echo $TYPE > $TDIR/type
+          echo "GCC version:"
           $TDIR/bin/gcc -v
+          echo "MXE packages installed:"
+          ls $TDIR/installed/
           echo "::endgroup::"
         fi
       shell: bash
 
     - name: Set up environment for the toolchain
       run: |
+        TYPE="${{ inputs.toolchain-type }}"
         TDIR=~/x86_64-w64-mingw32.static.posix
         if [ "${{ runner.os }}" = Windows -a $TYPE != "none" ] ; then
           echo "::group::Setting up environment for the toolchain"

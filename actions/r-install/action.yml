@@ -4,7 +4,7 @@ inputs:
   ucrt3-release:
     description: 'release tag for UCRT3'
     required: false
-    default: 'v0.1'
+    default: 'v0.2'
 runs:
   using: 'composite'
   steps:
@@ -26,11 +26,13 @@ runs:
           curl -s -L $URL > rinst.exe
           if [ ! -x rinst.exe ] ; then
             echo "::error ::ERROR: failed to download R installer"
+            exit 1
           fi
           ./rinst.exe //VERYSILENT //SUPPRESSMSGBOXES //CURRENTUSER //DIR=`cygpath -wa ~/r`
           rm -f rinst.exe
           if [ ! -x ~/r/bin/R.exe ] ; then
             echo "::error ::ERROR: failed to install R"
+            exit 1
           fi
           echo "::endgroup::"
         fi
@@ -41,6 +43,7 @@ runs:
         if [ "${{ runner.os }}" = Windows ] ; then
           echo "::group::Setting up environment for R"
           echo "~/r/bin" >> $GITHUB_PATH
+          # Prevent interference from pre-installed R
           echo "R_LIBS_USER=NULL" >> $GITHUB_ENV
           echo "R_LIBS_SITE=NULL" >> $GITHUB_ENV
           echo "::endgroup::"

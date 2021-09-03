@@ -36,7 +36,6 @@ runs:
         fi
 
         if [ "${{ runner.os }}" = Windows -a $TYPE != "none" -a ! -d $TDIR ] ; then
-
           echo "::group::Downloading and installing the toolchain"
           TAG="${{ inputs.ucrt3-release }}"
           if [ $TYPE = "base" ] ; then
@@ -45,14 +44,17 @@ runs:
             SUFF=""
           fi
           URL=`curl -s https://api.github.com/repos/kalibera/ucrt3/releases | \
-          sed -n 's!^ *\"*browser_download_url\"*: \"\(.*/download/'$TAG'/gcc10_ucrt3'$SUFF'_[0-9]\+\.txz\)\"!\1!p'`
+               sed -n 's!^ *\"*browser_download_url\"*: \"\(.*/download/'$TAG'/gcc10_ucrt3'$SUFF'_[0-9]\+\.txz\)\"!\1!p'`
+          echo "Toolchain URL is $URL"
           curl -s -L $URL > toolchain.txz
           if [ ! -r toolchain.txz ] ; then
             echo "::error ::ERROR: failed to download toolchain"
+            exit 1
           fi
           tar xf toolchain.txz -C ~
           if [ ! -d $TDIR ] ; then
             echo "::error ::ERROR: failed to install toolchain"
+            exit 1
           fi
           echo $TYPE > $TDIR/type
           echo "::endgroup::"

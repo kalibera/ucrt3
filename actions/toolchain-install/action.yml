@@ -12,13 +12,15 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Cache toolchain
-      uses: actions/cache@v2
-      env:
-        cache-name: cache-toolchain
-      with:
-        path: ~/x86_64-w64-mingw32.static.posix
-        key: ${{ env.cache-name }}-${{ inputs.ucrt3-release }}
+    #  Caching does not pay off (for full toolchain it slows things down)
+    #
+    # - name: Cache toolchain
+    #   uses: actions/cache@v2
+    #   env:
+    #     cache-name: cache-toolchain
+    #   with:
+    #     path: ~/x86_64-w64-mingw32.static.posix
+    #     key: ${{ env.cache-name }}-${{ inputs.ucrt3-release }}
 
     - name: Install toolchain
       run: |

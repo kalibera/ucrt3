@@ -51,12 +51,14 @@ runs:
             echo "::error ::ERROR: failed to download toolchain"
             exit 1
           fi
+          ls -l toolchain.txz
           tar xf toolchain.txz -C ~
           if [ ! -d $TDIR ] ; then
             echo "::error ::ERROR: failed to install toolchain"
             exit 1
           fi
           echo $TYPE > $TDIR/type
+          $TDIR/bin/gcc -v
           echo "::endgroup::"
         fi
       shell: bash

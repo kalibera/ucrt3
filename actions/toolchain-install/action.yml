@@ -43,18 +43,18 @@ runs:
           if [ $TYPE = "base" ] ; then
             SUFF="_base"
           else
-            SUFF=""
+            SUFF="_full"
           fi
           URL=`curl -s https://api.github.com/repos/kalibera/ucrt3/releases | \
-               sed -n 's!^ *\"*browser_download_url\"*: \"\(.*/download/'$TAG'/gcc10_ucrt3'$SUFF'_[0-9]\+\.txz\)\"!\1!p'`
+               sed -n 's!^ *\"*browser_download_url\"*: \"\(.*/download/'$TAG'/gcc10_ucrt3'$SUFF'_[0-9]\+\.tar.zst\)\"!\1!p'`
           echo "Toolchain URL is $URL"
-          curl -s -L $URL > toolchain.txz
-          if [ ! -r toolchain.txz ] ; then
+          curl -s -L $URL > toolchain.tar.zst
+          if [ ! -r toolchain.tar.zst ] ; then
             echo "::error ::ERROR: failed to download toolchain"
             exit 1
           fi
-          ls -l toolchain.txz
-          tar xf toolchain.txz -C ~
+          ls -l toolchain.tar.zst
+          tar xf toolchain.tar.zst -C ~
           if [ ! -d $TDIR ] ; then
             echo "::error ::ERROR: failed to install toolchain"
             exit 1

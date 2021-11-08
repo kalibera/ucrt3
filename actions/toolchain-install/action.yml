@@ -59,6 +59,7 @@ runs:
             echo "::error ::ERROR: failed to install toolchain"
             exit 1
           fi
+          rm -f toolchain.tar.zst
           echo $TYPE > $TDIR/type
           echo "GCC version:"
           $TDIR/bin/gcc -v

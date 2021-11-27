@@ -46,6 +46,8 @@ runs:
           # Prevent interference from pre-installed R
           echo "R_LIBS_USER=NULL" >> $GITHUB_ENV
           echo "R_LIBS_SITE=NULL" >> $GITHUB_ENV
+          # Define a time-zone
+          echo "TZ=Europe/Prague" >> $GITHUB_ENV
           echo "::endgroup::"
         fi
       shell: bash

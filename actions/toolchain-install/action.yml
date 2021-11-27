@@ -76,6 +76,8 @@ runs:
         if [ "${{ runner.os }}" = Windows -a $TYPE != "none" ] ; then
           echo "::group::Setting up environment for the toolchain"
           echo $TDIR/bin >> $GITHUB_PATH
+          echo "R_CUSTOM_TOOLS_SOFT=$TDIR" >> $GITHUB_ENV
+          echo "R_CUSTOM_TOOLS_PATH=custom_rtools" >> $GITHUB_ENV
           echo "::endgroup::"
         fi
       shell: bash

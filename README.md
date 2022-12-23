@@ -1,10 +1,10 @@
 # Github actions with UCRT/UTF-8 builds of R
 
 This is a demonstration of the use of github actions for checking packages
-on Windows using an experimental "ucrt3" build of R using UCRT as the C runtime and
-UTF-8 as the native encoding.  More information about the experimental
-builds is available in this [blog post](https://developer.r-project.org/Blog/public/2021/12/07/upcoming-changes-in-r-4.2-on-windows/index.html),
-this [howto](https://svn.r-project.org/R-dev-web/trunk/WindowsBuilds/winutf8/ucrt3/howto.html).
+on Windows using an experimental "ucrt3" build of R using a development version
+of Rtools (since Rtools42). More information about the experimental
+builds is available in this
+[howto](https://svn.r-project.org/R-dev-web/trunk/WindowsBuilds/winutf8/ucrt3/howto.html).
 
 [r-install](actions/r-install/action.yml) installs the "ucrt3" build of R.
 

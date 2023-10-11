@@ -61,6 +61,10 @@ runs:
             echo "::error ::ERROR: failed to install toolchain"
             exit 1
           fi
+          if [ ! -x $TDIR/bin/pkg-config ] ; then
+            # make sure packages won't use Msys2 pkg-config
+            echo "#! /bin/bash" > $TDIR/bin/pkg-config
+          fi
           rm -f toolchain.tar.zst
           echo $TYPE > $TDIR/type
           echo "GCC version:"

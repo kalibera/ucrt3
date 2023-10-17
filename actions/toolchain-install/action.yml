@@ -67,7 +67,7 @@ runs:
           fi  
           if [ ! -r $TDIR/bin/pkg-config.bat ] ; then
             # make sure packages find Rtools pkg-config even outside bash
-            echo '@bash %~dp0/pkg-config %*' > $TDIR/bin/pkg-config.bat
+            echo '@sh %~dp0/pkg-config %*' > $TDIR/bin/pkg-config.bat
           fi
           rm -f toolchain.tar.zst
           echo $TYPE > $TDIR/type

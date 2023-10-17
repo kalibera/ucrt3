@@ -71,8 +71,6 @@ runs:
           echo $TYPE > $TDIR/type
           echo "GCC version:"
           $TDIR/bin/gcc -v
-          echo "pkg-config version:"
-          pkg-config --version
           echo "MXE packages installed:"
           ls $TDIR/installed/
           echo "::endgroup::"

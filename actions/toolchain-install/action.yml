@@ -65,6 +65,8 @@ runs:
             # make sure packages won't use Msys2 pkg-config
             echo "#! /bin/bash" > $TDIR/bin/pkg-config
           fi
+          # test
+          echo -e '#! /bin/bash\necho "My pkg-config"' > $TDIR/bin/pkg-config-my
           rm -f toolchain.tar.zst
           echo $TYPE > $TDIR/type
           echo "GCC version:"

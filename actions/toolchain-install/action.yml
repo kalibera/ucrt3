@@ -65,7 +65,7 @@ runs:
             # make sure packages won't use non-Rtools pkg-config
             echo "#! /bin/bash" > $TDIR/bin/pkg-config
           else
-            echo "bash `cygpath -m $TDIR`/bin/pkg-config %*" > $TDIR/bin/pkg-config.bat
+            echo "@bash `cygpath -m $TDIR`/bin/pkg-config %*" > $TDIR/bin/pkg-config.bat
           fi
           rm -f toolchain.tar.zst
           echo $TYPE > $TDIR/type

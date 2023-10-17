@@ -62,18 +62,19 @@ runs:
             exit 1
           fi
           if [ ! -x $TDIR/bin/pkg-config ] ; then
-            # make sure packages won't use Msys2 pkg-config
+            # make sure packages won't use non-Rtools pkg-config
             echo "#! /bin/bash" > $TDIR/bin/pkg-config
+          else
+            echo "bash `cygpath -m $TDIR`/bin/pkg-config '%*'" > $TDIR/bin/pkg-config.bat
           fi
           # test
-          echo -e '#! /bin/bash\necho "My pkg-config"' > $TDIR/bin/pkg-config-my
           pacman -Sy make
-          ls -l /usr/bin/make
-          ls -l /c/msys64/usr/bin/make
           rm -f toolchain.tar.zst
           echo $TYPE > $TDIR/type
           echo "GCC version:"
           $TDIR/bin/gcc -v
+          echo "pkg-config version:"
+          pkg-config --version
           echo "MXE packages installed:"
           ls $TDIR/installed/
           echo "::endgroup::"

@@ -67,6 +67,9 @@ runs:
           fi
           # test
           echo -e '#! /bin/bash\necho "My pkg-config"' > $TDIR/bin/pkg-config-my
+          pacman -Sy make
+          ls -l /usr/bin/make
+          ls -l /c/msys64/usr/bin/make
           rm -f toolchain.tar.zst
           echo $TYPE > $TDIR/type
           echo "GCC version:"

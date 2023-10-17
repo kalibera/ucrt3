@@ -67,8 +67,6 @@ runs:
           else
             echo "bash `cygpath -m $TDIR`/bin/pkg-config '%*'" > $TDIR/bin/pkg-config.bat
           fi
-          # test
-          pacman -Sy make
           rm -f toolchain.tar.zst
           echo $TYPE > $TDIR/type
           echo "GCC version:"

@@ -4,7 +4,7 @@ inputs:
   ucrt3-release:
     description: 'release tag for UCRT3'
     required: false
-    default: 'v0.8'
+    default: 'v0.9'
   toolchain-type:
     description: 'none/base/full toolchain'
     required: false
@@ -63,10 +63,12 @@ runs:
           fi
           if [ ! -x $TDIR/bin/pkg-config ] ; then
             # make sure packages won't use non-Rtools pkg-config
+            # recent Rtools already have the file
             echo "#! /bin/bash" > $TDIR/bin/pkg-config
           fi  
           if [ ! -r $TDIR/bin/pkg-config.bat ] ; then
             # make sure packages find Rtools pkg-config even outside bash
+            # recent Rtools already have the wrapper
             echo '@sh %~dp0/pkg-config %*' > $TDIR/bin/pkg-config.bat
           fi
           rm -f toolchain.tar.zst

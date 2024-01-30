@@ -61,16 +61,16 @@ runs:
             echo "::error ::ERROR: failed to install toolchain"
             exit 1
           fi
-          if [ ! -x $TDIR/bin/pkg-config ] ; then
-            # make sure packages won't use non-Rtools pkg-config
-            # recent Rtools already have the file
-            echo "#! /bin/bash" > $TDIR/bin/pkg-config
-          fi  
-          if [ ! -r $TDIR/bin/pkg-config.bat ] ; then
-            # make sure packages find Rtools pkg-config even outside bash
-            # recent Rtools already have the wrapper
-            echo '@sh %~dp0/pkg-config %*' > $TDIR/bin/pkg-config.bat
-          fi
+          #if [ ! -x $TDIR/bin/pkg-config ] ; then
+          #  # make sure packages won't use non-Rtools pkg-config
+          #  # recent Rtools already have the file
+          #  echo "#! /bin/bash" > $TDIR/bin/pkg-config
+          #fi  
+          #if [ ! -r $TDIR/bin/pkg-config.bat ] ; then
+          #  # make sure packages find Rtools pkg-config even outside bash
+          #  # recent Rtools already have the wrapper
+          #  echo '@sh %~dp0/pkg-config %*' > $TDIR/bin/pkg-config.bat
+          #fi
           rm -f toolchain.tar.zst
           echo $TYPE > $TDIR/type
           echo "GCC version:"

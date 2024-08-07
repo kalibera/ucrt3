@@ -4,7 +4,7 @@ inputs:
   ucrt3-release:
     description: 'release tag for UCRT3'
     required: false
-    default: 'v0.9'
+    default: 'v0.10'
 runs:
   using: 'composite'
   steps:

@@ -48,7 +48,7 @@ runs:
             SUFF="_full"
           fi
           URL=`$RCURL https://api.github.com/repos/kalibera/ucrt3/releases | \
-               sed -n 's!^ *\"*browser_download_url\"*: \"\(.*/download/'$TAG'/gcc13_ucrt3'$SUFF'_[0-9]\+\.tar.zst\)\"!\1!p'`
+               sed -n 's!^ *\"*browser_download_url\"*: \"\(.*/download/'$TAG'/gcc.._ucrt3'$SUFF'_[0-9]\+\.tar.zst\)\"!\1!p'`
           echo "Toolchain URL is $URL"
           $RCURL -o toolchain.tar.zst $URL
           if [ ! -r toolchain.tar.zst ] ; then

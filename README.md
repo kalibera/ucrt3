@@ -33,3 +33,18 @@ Both actions use an action for checking R packages by Simon Urbanek
 (original version [here](https://github.com/s-u/R-actions)), currently in a
 slightly modified version
 [R-actions](https://github.com/kalibera/R-actions).
+
+Please check release notes for each individual github release of the toolchain
+and the included diff file. Some releases include R builds which automatically apply
+[patches](https://www.r-project.org/nosvn/winutf8/ucrt3/patches/) to packages at
+installation time. They also typically use binary builds of dependent packages
+(patched the same way, of [CRAN](https://www.r-project.org/nosvn/winutf8/ucrt3/CRAN/bin/)  and
+[Bioconductor](https://www.r-project.org/nosvn/winutf8/ucrt3/BIOC/bin/) packages). The check
+action in [R-actions](https://github.com/kalibera/R-actions) now disable the patching
+explicitly for the package being checked, while it is being checked, but the patching
+still applies during installation of dependencies (and first round of installing the
+package itself). So, checks for a package may provide surprising results when there
+is a patch for the package (e.g. installation passes but then check fails, or there
+are messages about issues applying a patch). On the other hand, the benefit is that
+one may test changes to a package even when CRAN versions of dependent packages
+have not yet been fixed.

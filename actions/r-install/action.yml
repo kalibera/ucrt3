@@ -9,7 +9,7 @@ runs:
   using: 'composite'
   steps:
     - name: Cache R installation
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       env:
         cache-name: cache-r
       with:
